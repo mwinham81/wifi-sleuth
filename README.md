@@ -33,7 +33,7 @@ A WiFi network analyzer and geolocation tool for Windows. Scans nearby access po
 ## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/wifi-sleuth.git
+git clone https://github.com/mwinham81/wifi-sleuth.git
 cd wifi-sleuth
 pip install -r requirements.txt
 ```
