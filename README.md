@@ -2,6 +2,9 @@
 
 A WiFi network analyzer and geolocation tool for Windows. Scans nearby access points, records signal strength with GPS coordinates, and estimates AP locations through triangulation.
 
+<img width="2333" height="856" alt="image" src="https://github.com/user-attachments/assets/80a98428-97b1-4b29-b648-b342c9d40da3" />
+
+
 ![Python](https://img.shields.io/badge/python-3.x-blue)
 ![Flask](https://img.shields.io/badge/flask-%E2%89%A53.0-green)
 ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)
