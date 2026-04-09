@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFiSleuth - WiFi Analyzer</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>WiFiSleuth</h1>
+        <div id="status-bar">
+            <span id="gps-status" class="status-badge disconnected" title="GPS from phone">GPS: --</span>
+            <span id="scan-status" class="status-badge" title="Last scan time">Scan: --</span>
+            <span id="network-count" class="status-badge">Networks: 0</span>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab active" data-tab="live-scan">Live Scan</button>
+        <button class="tab" data-tab="channel-map">Channel Map</button>
+        <button class="tab" data-tab="time-series">Time Series</button>
+        <button class="tab" data-tab="signal-map">Signal Map</button>
+    </nav>
+
+    <!-- Tab 1: Live Scan -->
+    <section id="live-scan" class="tab-content active">
+        <div class="toolbar">
+            <label><input type="checkbox" id="auto-refresh" checked> Auto-refresh (3s)</label>
+            <button id="btn-scan-now" class="btn">Scan Now</button>
+            <select id="band-filter">
+                <option value="all">All Bands</option>
+                <option value="2.4 GHz">2.4 GHz Only</option>
+                <option value="5 GHz">5 GHz Only</option>
+            </select>
+        </div>
+        <div class="table-wrap">
+            <table id="scan-table">
+                <thead>
+                    <tr>
+                        <th data-sort="ssid">SSID</th>
+                        <th data-sort="bssid">BSSID</th>
+                        <th data-sort="band">Band</th>
+                        <th data-sort="channel">Ch</th>
+                        <th data-sort="frequency_mhz">Freq (MHz)</th>
+                        <th data-sort="signal_pct">Signal %</th>
+                        <th data-sort="signal_dbm">dBm</th>
+                        <th data-sort="auth">Security</th>
+                    </tr>
+                </thead>
+                <tbody id="scan-tbody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Tab 2: Channel Map -->
+    <section id="channel-map" class="tab-content">
+        <div class="chart-container">
+            <h3>2.4 GHz Channels</h3>
+            <div id="chart-24ghz"></div>
+        </div>
+        <div class="chart-container">
+            <h3>5 GHz Channels</h3>
+            <div id="chart-5ghz"></div>
+        </div>
+    </section>
+
+    <!-- Tab 3: Time Series -->
+    <section id="time-series" class="tab-content">
+        <div class="toolbar">
+            <button id="btn-record" class="btn">Start Recording</button>
+            <span id="record-status"></span>
+            <select id="ts-bssid-select" multiple size="4">
+                <option disabled>Run a scan first...</option>
+            </select>
+        </div>
+        <div id="chart-timeseries"></div>
+    </section>
+
+    <!-- Tab 4: Signal Map -->
+    <section id="signal-map" class="tab-content">
+        <div class="toolbar">
+            <button id="btn-record-point" class="btn btn-primary">Record Point</button>
+            <select id="map-bssid-select">
+                <option value="">-- Select Network --</option>
+            </select>
+            <button id="btn-triangulate" class="btn">Triangulate</button>
+            <button id="btn-clear-data" class="btn btn-danger">Clear All Data</button>
+            <span id="map-info"></span>
+        </div>
+        <div class="toolbar">
+            <span class="hint">Open <strong>http://{{ local_ip }}:5000</strong> on your phone for GPS.</span>
+        </div>
+        <div id="map-container"></div>
+    </section>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
